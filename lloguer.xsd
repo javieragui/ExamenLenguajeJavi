@@ -23,5 +23,23 @@ elementFormDefault="qualified">
 				</xsd:all>
 				<xsd:attribute name="matricula" type="xsd:string" />
 			</xsd:complexType>
-		</xsd:element>				
-					
+		</xsd:element>	
+
+		<xsd:element name="client" maxOccurs="unbounded">	
+			<xsd:complexType>
+				<xsd:all>		
+					<xsd:element name="nom" type="xsd:string" />	
+						<xsd:simpleType>
+							<xsd:attribute name="tractament" type="xsd:string" />
+						</xsd:simpleType>
+					<xsd:element name="telefon" type="xsd:string" />
+					<xsd:element name="email" type="xsd:string" />
+					<xsd:element name="tipusClient" type="xsd:string" />
+					<xsd:element name="lloguer" type="xsd:string" maxOccurs="unbounded"/>	
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="cotxe" type="xsd:string" />	
+								<xsd:element name="dataInici" type="xsd:string" />	
+								<xsd:element name="dataFi" type="xsd:string" />	
+							</xsd:sequence>
+						</xsd:complexType>
