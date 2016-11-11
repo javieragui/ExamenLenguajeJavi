@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-targetNamespace="http://www.iessonferrer.net/jgonzalez/lloguer"
+targetNamespace="http://www.iessonferrer.net/jgonzalez/lloguerCotxes"
 elementFormDefault="qualified">
 <xsd:element name="lloguerCotxes">
 	<xsd:complexType>
 		<xsd:sequence>
-			<xsd:element name="cotxe" maxOccurs="unbounded">
+			<xsd:element name="cotxe" maxOccurs="unbounded" minOccurs="0">
 				<xsd:complexType>
-					<xsd:all>
+					<xsd:sequence>
 						<xsd:element name="marca" type="xsd:string" />
 						<xsd:element name="model" type="xsd:string" />
-						<xsd:element name="equipacio" type="xsd:string">
+						<xsd:element name="color" type="xsd:string" minOccurs="0" />
+						<xsd:element name="equipacio" >
 							<xsd:complexType>
 								<xsd:sequence>
 									<xsd:element name="climatitzador" type="xsd:string" />
@@ -18,25 +19,37 @@ elementFormDefault="qualified">
 									<xsd:element name="automatic" type="xsd:string" />
 									<xsd:element name="cadiraNinPetit" type="xsd:string" />
 								</xsd:sequence>	
-							</xsd:complexType>						
-						<xsd:element name="color" type="xsd:string" />
-					</xsd:all>
-					<xsd:attribute name="matricula" type="xsd:string" />
+							</xsd:complexType>	
+						</xsd:element>					
+					</xsd:sequence>
+					<xsd:attribute name="matricula" type="xsd:string" use="optional" />
 				</xsd:complexType>
 			</xsd:element>	
 
-			<xsd:element name="client" maxOccurs="unbounded" use="required">	
+			<xsd:element name="client" maxOccurs="unbounded" minOccurs="0">	
 				<xsd:complexType>
-					<xsd:all>		
-						<xsd:element name="nom" type="xsd:string">	
-							<xsd:simpleType>
-								<xsd:attribute name="tractament" type="xsd:string" />
-							</xsd:simpleType>
+					<xsd:sequence>		
+						<xsd:element name="nom">	
+							<xsd:complexType>
+								 <xsd:simpleContent>
+									 <xsd:extension base="xs:string">
+										<xsd:attribute name="tractament" type="xsd:string" use="optional" />
+									</xsd:extension>
+								 </xsd:simpleContent>
+							</xsd:complexType>
 						</xsd:element>
 						<xsd:element name="telefon" type="xsd:integer" />
 						<xsd:element name="email" type="xsd:string" />
-						<xsd:element name="tipusClient" type="xsd:string" />
-						<xsd:element name="lloguer" type="xsd:string" minOccurs="0" maxOccurs="unbounded">	
+						<xsd:element name="tipusClient" type="xsd:string">
+							<xsd:simpleType>
+							    <xsd:restriction base="xs:string">
+								 <xsd:enumeration value="Premium"/>
+								 <xsd:enumeration value="Habitual"/>
+								 <xsd:enumeration value="Ocasional"/>
+							    </xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="lloguer" minOccurs="0" maxOccurs="unbounded">	
 							<xsd:complexType>
 								<xsd:sequence>
 									<xsd:element name="cotxe" type="xsd:string" />	
@@ -45,10 +58,11 @@ elementFormDefault="qualified">
 								</xsd:sequence>
 							</xsd:complexType>
 						</xsd:element>
-					</xsd:all>
-					<xsd:attribute name="dni" type="xsd:string" />
+					</xsd:sequence>
+					<xsd:attribute name="dni" type="xsd:string" use="optional" />
 				</xsd:complexType>	
 			</xsd:element>	
 		</xsd:sequence>
 	</xsd:complexType>
 </xsd:element>	
+</xsd:schema>
